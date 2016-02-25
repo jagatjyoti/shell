@@ -1,0 +1,2 @@
+linux   /vmlinuz-3.11.0-12-generic root=UUID=915580be-d903-4099-8d6f-930c24
+26a376 ro   quiet splash $vt_handoff

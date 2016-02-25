@@ -1,0 +1,1 @@
+awk is pattern scanning and text processing language. It is useful for manipulation of data files, text retrieval and processing, and for prototyping and experimenting with algorithms. The name AWK is derived from the surnames of its authors — Alfred Aho, Peter Weinberger, and Brian Kernighan
