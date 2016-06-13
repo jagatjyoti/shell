@@ -3,9 +3,9 @@
 run_rpm()
 {
   read -p "Enter rpm to be queried and installed if not present: " pkg
-  dpkg -l | grep -i $pkg
-  retval = $?
-  if [ $retval -ne 0 ]; then
+  dpkg -l | grep -i $pkg > /dev/null
+  retval=$?
+  if [ "$retval" -ne 0 ]; then
     echo "Package not found, Installing ..."
     sudo apt-get install $pkg
   else
@@ -24,8 +24,11 @@ show_stats()
   echo "******************************   SYSTEM STATS   *********************************"
   echo "                                                                                 "
   echo "Uptime: "; uptime
+  echo "----------------------------------------------------------------------------------"
   echo "RAM usage"; free -h
+  echo "----------------------------------------------------------------------------------"
   echo "Users logged on: "; who
+  echo "----------------------------------------------------------------------------------"
   echo "Disk space: "; df -h
   echo "----------------------------------------------------------------------------------"
 }
@@ -34,8 +37,8 @@ remote_command()
 {
   read -p "Enter command to be ran and remote machine's IP separated by space: " command IP
   ping -c 1 $IP
-  retval = $?
-  if [ $retval -ne 0 ]; then
+  retval=$?
+  if [ "$retval" -ne 0 ]; then
     echo "Found host to be down. Exiting ..."; exit 2;
   else
     echo "Host is up. Running command on remote machine $IP"
@@ -53,18 +56,19 @@ usage()
   echo "    -c run a command in remote machine"
 }
 
+# Main program
+
 if [ $# -eq 0 ]; then
-  print usage
+  usage
   exit 1
 fi
 
-while getopts rusc: opt
+while getopts rusc opt
 do
   case "$opt" in
     r) run_rpm;;
     u) query_user;;
     s) show_stats;;
     c) remote_command;;
-    *) usage; exit 1;;
   esac
 done
