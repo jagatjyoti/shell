@@ -10,19 +10,20 @@ else
 fi
 
 # Set threshold temperature
-threshold=+80.0°C
+threshold="+80.0°C"
 
 # Check if temp has reached threshold, trigger mail
 tempnow=$(sensors | sed -n '20p' | awk '{print $NF}')
 
 res=`echo "$tempnow $threshold" | awk '{ if($1 > $2) print "Exceeds"; else print "Normal" }'`
 
-if [ "$res" -eq "Exceeds" ]; then
+if [ "$res" == "Exceeds" ]
+then
   echo "Temperature exceeds threshold. Triggering mail to system owners..."
   mail -s "CPU temperature too high on system" abc@xyz.com
-elif [ "$res" -eq "Normal" ]
+elif [ "$res" == "Normal" ]
+then
   echo "Temperature under limit. Ignoring countermeasures!"
 else
   echo "Unable to determine value"
 fi
-
