@@ -1,7 +1,7 @@
 #!/bin/bash
 
-status=$#
-[ $status -eq 0 ] && echo "Usage: $0 username" || echo "Script to find users in /etc/passwd file"
+args=$#
+[ $args -eq 0 ] && echo "Usage: $0 username1 username2 ..." || echo "Script to find users in /etc/passwd file"
 echo "Proceeding with "$#" arguments given by user"
 for i in "$@"
 do
@@ -10,7 +10,6 @@ do
         then
         echo "User $i found"
     else
-       echo  "User $i doesn't exist"   
-    fi 
+       echo  "User $i doesn't exist"
+    fi
 done
-
