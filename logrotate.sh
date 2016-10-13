@@ -1,13 +1,17 @@
 #!/bin/bash
 
+if [ $(id -u) != 0 ]; then
+  echo "Script can only be run by root!"; exit 1;
+fi
+
 if [ $# != 1 ]; then
-  echo "Usage: $0 /path/to/location"; exit 1;
+  echo "Usage: $0 /path/to/location"; exit 2;
 fi
 
 path=$1
 
 echo "Getting log files greater than threshold which is 11MB"
-sudo find $path -size +11M > $path/filelist.txt
+sudo find $path -size +11M > $pathfilelist.txt
 
 echo "Zipping below files into one !"
 cat $path/filelist.txt
