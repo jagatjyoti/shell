@@ -13,5 +13,9 @@ while [ $i -le 10 ]; do
     i=$(( $i + 1 )) 
 done
 pactl load-module module-bluetooth-discover
-echo "Bluetooth should be functional now!"
-
+retval=$?
+if [ $retval -eq 0 ]; then
+    echo "Bluetooth should be functional now!"
+else 
+    echo "Setup failed ..."
+fi 
